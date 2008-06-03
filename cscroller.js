@@ -52,7 +52,10 @@ thepaw.ContinousScroller.prototype = {
             loading_placeholder:    The placeholder text to show when the loading is 
                                     still in progress.
                                     
-                                    
+            next_segment_id_generator:    The function to get the next segment's id (the one
+                                          in the url)   from the current id.
+                                          The default is 
+                                            function(idx) { return idx + 1 }
         Example:
         
         new thepaw.ContinousScroller("personal_programs", "recommended_programs", "/my_top10/$page_num$", {
@@ -70,7 +73,8 @@ thepaw.ContinousScroller.prototype = {
             "trigger_height":1000,
             "failiure_message": "Error while trying to fetch the new items." +
                                 "Check your internet connection...",
-            "loading_placeholder": "Loading newer items..."
+            "loading_placeholder": "Loading newer items...",
+            "next_segment_id_generator": function(idx) { return idx + 1 }
         }).merge(options)
         
         this.scroller_uid = "cont_scroll_" + String(uid)
@@ -78,6 +82,7 @@ thepaw.ContinousScroller.prototype = {
         this.url = url
         this.options = options
         this.updateInProgress = false
+        this.next_segment_id_generator = options.next_segment_id_generator
         
         new Insertion.Before( this.div_id, 
             '<input type="hidden" id="continous_scroll_index" name="scroll_index" value="0"/>')
@@ -91,6 +96,7 @@ thepaw.ContinousScroller.prototype = {
             if (t == null) return
             if (!t.updateInProgress && 
                 getPageHeight() - getScrollHeight() < t.options.trigger_height) {
+                    // Set a cookie to store for later viewing. Is this necessary?
                     setCookie(t.scroller_uid, $F("continous_scroll_index") );
             	    t.updateInProgress = true;
             	    t.getMoreContent();          
@@ -101,7 +107,7 @@ thepaw.ContinousScroller.prototype = {
     
     getMoreContent: function(){
         var t = this
-        var next_page_idx = Math.round($F('continous_scroll_index')) + 1
+        var next_page_idx = this.next_segment_id_generator(Math.round($F('continous_scroll_index')))
         $('continous_scroller_loading_placeholder').show()
         new Ajax.Request(this.url.replace('$page_num$', next_page_idx), {
             method: 'get', 
