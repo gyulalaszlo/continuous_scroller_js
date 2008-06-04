@@ -63,7 +63,8 @@ thepaw.ContinousScroller.prototype = {
 					'<img src="/images/ajax-loader.gif" style="vertical-align:middle;"/>' +
 					'<b>One moment, loading the page/b>'+
 					'</div>'
-			"failiure_notice":"An error occured. Check your connection..."
+			"failiure_notice":"An error occured. Check your connection...",
+			"next_segment_id_generator":function(idx) { return idx + 10 }
 		})
     */
     initialize: function(uid, content_div_id, url, options) {
