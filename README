@@ -26,10 +26,11 @@ CScroller runs on any browser, where Prototype works:
 ## Using CScroller
 
 To use CScroller in your application, download the latest release from the 
-CScroller source site (http://github.com/gyulalaszlo/csscroller) and copy 
+[CScroller source site](http://github.com/gyulalaszlo/continuous_scroller_js) and copy 
 <tt>cscroller.js</tt> to a suitable location. Then include it in your HTML
 like so:
 
+		<script type="text/javascript" src="/path/to/prototype.js"></script>
 		<script type="text/javascript" src="/path/to/cscroller.js"></script>
 
 
