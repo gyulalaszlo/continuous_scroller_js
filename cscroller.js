@@ -187,7 +187,7 @@ thepaw.ContinousScroller.DefaultConfiguration = {
     {  
         idx = 0,
         next:function() {
-            return "items?from=" + idx + "&until=" + (idx += 10) 
+            return "items?from=" + this.idx + "&until=" + (this.idx += 10) 
         }
     } 
         // => 'items?from=0&until=10', 'items?from=0&until=10', '/pages/30'
