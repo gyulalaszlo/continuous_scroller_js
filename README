@@ -77,6 +77,29 @@ Create a continous scroller. Only one instance per page...
 * __loading_placeholder:__    
 	  The placeholder text to show when the loading is still
 	  in progress.
+	
+#### Callbacks:
+
+* __onSegmentLoadStart:__    
+		<code> function() { ... } </code>    	
+		Callback when starting to load a new segment.
+
+* __onSegmentLoadComplete:__    
+		<code> function(transport) { ... } </code>    
+		Callback when the AJAX request completed. The transport is the
+		raw Protype transport. (use <code>transport.responseText</code>
+		to get the raw response text)
+
+* __onSegmentInsertComplete:__    
+		<code>function() { }</code>    
+		Callback when the new contents are inserted to the bottom.
+
+* __onSegmentLoadFaliure:__    
+		<code> function(transport) { ... } </code>    
+		Callback when the AJAX request fails. The transport is the
+		raw Protype transport. (use <code>transport.responseText</code>
+		to get the raw response text)
+	
 
 ### The default url generator
 
