@@ -93,20 +93,30 @@ thepaw.ContinousScroller.prototype = {
     
     getMoreContent: function(){
         var t = this
-        $( this.placeholderDivId ).show()
+		var placeholder_div = $( this.placeholderDivId )
+		placeholder_div.show()
+
+		// LoadStart Callback
+		this.options.onSegmentLoadStart()
+		
         new Ajax.Request(this.url_generator.next()  , {
             method: 'get', 
             onSuccess: function(transport) {
+				t.options.onSegmentLoadComplete( transport )
+
                 // No more elements for us. Stop.
                 if (transport.responseText.length < 300) t.updater.stop()
                 
                 // Update the content
                 new Insertion.Bottom(t.div_id, transport.responseText)
-                $( t.placeholderDivId ).hide()
+                placeholder_div.hide()
                 t.updateInProgress = false;
+				t.options.onSegmentInsertComplete()
+
             }, 
             
             onFailure: function(transport) {
+				t.options.onSegmentLoadFaliure( transport )	
                 new Insertion.bottom( t.div_id, 
                     "<div id='continous_scroll_failiure_notice'>" + t.options.failiure_message 
                     + "</div>"
@@ -142,6 +152,30 @@ thepaw.ContinousScroller.prototype = {
         loading_placeholder:    
             The placeholder text to show when the loading is still
             in progress.
+
+	Callbacks:
+	
+		onSegmentLoadStart:
+			<code> function() { ... } </code>		
+			Callback when starting to load a new segment.
+
+		onSegmentLoadComplete: 
+			<code> function(transport) { ... } </code>
+			Callback when the AJAX request completed. The transport is the
+			raw Protype transport. (use <code>transport.responseText</code>
+			to get the raw response text)
+			
+		onSegmentInsertComplete:
+			<code>function() { }</code>
+			Callback when the new contents are inserted to the bottom.
+			
+		onSegmentLoadFaliure
+			<code> function(transport) { ... } </code>
+			Callback when the AJAX request fails. The transport is the
+			raw Protype transport. (use <code>transport.responseText</code>
+			to get the raw response text)
+
+	
                                 
 */
 
@@ -151,7 +185,12 @@ thepaw.ContinousScroller.DefaultConfiguration = {
     failiure_message: "Error while trying to fetch the new items." +
                         "Check your internet connection...",
     loading_placeholder: "Loading newer items...",
-    uid:"continous_scroller_uid"
+    uid:"continous_scroller_uid",
+
+	onSegmentLoadStart:function() { },
+	onSegmentLoadComplete:function(transport) { },
+	onSegmentInsertComplete:function() { },
+	onSegmentLoadFaliure:function(transport) { }
 }
 
 /**
