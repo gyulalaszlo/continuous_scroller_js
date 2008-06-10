@@ -6,6 +6,7 @@ CScroller enables you to add endless (infinite) scrolling to almost
 any webpage, without the need to generate special url-s or rewriting
 the existing code. All this niceness with only a few lines of Javascript.
 
+
 ### Requirements:
 
 *	__Prototype__: [http://prototypejs.org](http://prototypejs.org)
@@ -22,6 +23,30 @@ CScroller runs on any browser, where Prototype works:
 * Apple Safari 2.0 and higher
 * Opera 9.25 and higher
 	(also confirmed working with Opera 9.20 bundled with Adobe CS3)
+
+### Licence
+
+The MIT License
+
+(c) Copyright 2008 Gyula László
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
 
 ## Using CScroller
 
@@ -41,6 +66,13 @@ like so:
 			check_interval:0.5,
 			failiure_message:'<b>Something terrible happened.</b><br/>'+
 			    'We cannot help you get any more content. Check your internet connection.'
+		})
+
+		new thepaw.ContinousScroller("recommended_programs", { url:"?page=$page_num$"}, {
+			onSegmentLoadComplete:function(transport) {
+				alert("downloaded stuff :" + transport)
+			},
+			loading_placeholder: "Loading more content, please wait..."
 		})
 
 For a live example, go to ["sziget.FM"](http://sziget.fm/top10).
@@ -135,3 +167,10 @@ the ContinousScroller accepts hash or a custom url generator:
 	    }
 	} 
 	    // => 'items?from=0&until=10', 'items?from=0&until=10', '/pages/30'
+
+
+### Credits
+
+* [Aza Raskin](http://azarask.in/blog/):
+ 	* for the original implementation at [Humanized reader](http://humanized.com/reader)
+	* parts of the code: the <code>thepaw.third_party</code> module
