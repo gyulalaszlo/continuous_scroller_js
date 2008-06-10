@@ -114,21 +114,20 @@ Create a continous scroller. Only one instance per page...
 
 * __onSegmentLoadStart:__    
 		<code> function() { ... } </code>    	
-		Callback when starting to load a new segment.
+		Callback before starting to load a new segment.
 
 * __onSegmentLoadComplete:__    
 		<code> function(transport) { ... } </code>    
-		Callback when the AJAX request completed. The transport is the
+		Called after the AJAX request completed. The transport is the
 		raw Protype transport. (use <code>transport.responseText</code>
 		to get the raw response text)
 
-* __onSegmentInsertComplete:__    
-		<code>function() { }</code>    
-		Callback when the new contents are inserted to the bottom.
+* __onSegmentInsertComplete:__ <code>function() { }</code>    
+		Called after the new contents have been inserted at the bottom.
 
 * __onSegmentLoadFaliure:__    
 		<code> function(transport) { ... } </code>    
-		Callback when the AJAX request fails. The transport is the
+		Called if the AJAX request fails. The transport is the
 		raw Protype transport. (use <code>transport.responseText</code>
 		to get the raw response text)
 	
@@ -166,7 +165,7 @@ the ContinousScroller accepts hash or a custom url generator:
 	        return "items?from=" + this.idx + "&until=" + (this.idx += 10) 
 	    }
 	} 
-	    // => 'items?from=0&until=10', 'items?from=0&until=10', '/pages/30'
+	    // => 'items?from=0&until=10', 'items?from=10&until=20', ...
 
 
 ### Credits

@@ -31,17 +31,6 @@
         http://github.com/gyulalaszlo/csscroller
         
     to obtain your copy.
-    
-    Usage by example:
-    
-    <pre>
-	new thepaw.ContinousScroller("recommended_programs",{ url:"/top10/$page_num$" }, {
-		loading_placeholder:'<div class="white_box">Blah-blah</div>',
-		check_interval:0.5,
-		failiure_message:'<b>Something terrible happened.</b><br/>'+
-		    'We cannot help you get any more content. Check your internet connection.'
-	})
-	</pre>
 */
 
 thepaw = {}
@@ -49,21 +38,7 @@ thepaw = {}
 thepaw.ContinousScroller = Class.create()
 thepaw.ContinousScroller.prototype = { 
     
-    /**
-    new thepaw.ContinousScroller(content_div_id, url_generator, options)
-    
-    Create a continous scroller. Only one instance per page...
-    
-    Parameters:
-    
-               
-        content_div_id:   
-            The div to serve the content into.
-        url_generator:
-            The url generator to use. See "The default url generator"
-            bit bellow.
-    
-    */
+
     initialize: function(content_div_id, url_generator, options) {
         
         this.options = $H( thepaw.ContinousScroller.DefaultConfiguration ).merge(options)
@@ -131,54 +106,6 @@ thepaw.ContinousScroller.prototype = {
 }
 
 
-
-/**
-    The default options
-    =========================
-    
-    Options:
-    
-        check_interval:     
-            The interval between checks (seconds). Default is 0.2
-        
-        trigger_height:     
-            The maximum distance from the bottom where the content 
-            update gets triggered (pixels). Default is 1000
-        
-        failiure_message:   
-            The message to show on the bottom when the scroller 
-            can't load the next page.
-        
-        loading_placeholder:    
-            The placeholder text to show when the loading is still
-            in progress.
-
-	Callbacks:
-	
-		onSegmentLoadStart:
-			<code> function() { ... } </code>		
-			Callback when starting to load a new segment.
-
-		onSegmentLoadComplete: 
-			<code> function(transport) { ... } </code>
-			Callback when the AJAX request completed. The transport is the
-			raw Protype transport. (use <code>transport.responseText</code>
-			to get the raw response text)
-			
-		onSegmentInsertComplete:
-			<code>function() { }</code>
-			Callback when the new contents are inserted to the bottom.
-			
-		onSegmentLoadFaliure
-			<code> function(transport) { ... } </code>
-			Callback when the AJAX request fails. The transport is the
-			raw Protype transport. (use <code>transport.responseText</code>
-			to get the raw response text)
-
-	
-                                
-*/
-
 thepaw.ContinousScroller.DefaultConfiguration = {
     check_interval:0.2,
     trigger_height:1000,
@@ -192,49 +119,6 @@ thepaw.ContinousScroller.DefaultConfiguration = {
 	onSegmentInsertComplete:function() { },
 	onSegmentLoadFaliure:function(transport) { }
 }
-
-/**
-    The default url generator
-    =========================
-    
-    A generator is a hash with a next() function which returns
-    the url of the next segment to load. The second parameter of
-    the ContinousScroller accepts hash or a custom url generator:
-    
-    Examples:
-    
-    <pre>
-    
-    // Using the default url generator
-    // we don't define next()
- 
-    {  url:"/pages/$page_num$.html"  } 
-        // => '/pages/1.html', '/pages/2.html', ....
-        
-    {  start_index:10, url:"/pages/$page_num$"  } 
-        // => '/pages/10', '/pages/11', '/pages/12', ...
-        
-    {  start_index:10, default_spacing:20, url:"/pages/$page_num$"  } 
-        // => '/pages/10', '/pages/20', '/pages/30', ...
-
-    // Using a custom url generator
-    // we simply define next()
-        
-    {  next:function() { return "?page_idx=" + Math.round(Math.random() * 100) } } 
-        // => '?page_idx=57', '?page_idx=19', '/pages/81', ...
-        
-    {  
-        idx = 0,
-        next:function() {
-            return "items?from=" + this.idx + "&until=" + (this.idx += 10) 
-        }
-    } 
-        // => 'items?from=0&until=10', 'items?from=0&until=10', '/pages/30'
-        
-    
-        
-    </pre>
-*/
 
 thepaw.ContinousScroller.DefaultUrlGenerator = {
     url:null,
