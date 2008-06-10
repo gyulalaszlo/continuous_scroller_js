@@ -27,11 +27,7 @@
 
 /**
     See README for more info or go to 
-        
-        http://psinc.wordpress.com/cscroller_js
-        
-        or
-        
+                
         http://github.com/gyulalaszlo/csscroller
         
     to obtain your copy.
@@ -258,8 +254,16 @@ thepaw.ContinousScroller.DefaultUrlGenerator = {
 
 
 
-// These two functions are based on code from
-// http://www.quirksmode.org/viewport/compatibility.html
+/*
+	The third_party module contains code originally developed by:
+	
+	[ Aza Raskin ](http://azarask.in/blog/)
+	
+	for:
+	
+	[ Humanized reader ](http://humanized.com/reader)
+	
+*/
 thepaw.third_party = {
 
     getPageHeight: function (){
